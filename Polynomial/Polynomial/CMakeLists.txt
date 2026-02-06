@@ -8,7 +8,7 @@ add_executable(Polynomial
 # Настройки для Windows
 if(WIN32)
     target_link_libraries(Polynomial PRIVATE psapi)
-    target_compile_definitions(Polynomial PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
+    target_compile_definitions(Polynomial PRIVATE NOMINMAX)
 endif()
 
 # Линковка зависимостей

@@ -53,8 +53,9 @@
 /* define version string */
 static char _VC_[] = "@(#)complexprecision.h 01.11 -- Copyright (C) Henrik Vestermark";
 
-#include <stdexcept>
+#include "fprecision.h" // Required: complexprecision depends on float_precision, _PI, _float_table
 #include <iostream>
+#include <stdexcept>
 
 //static_assert(__cplusplus >= 201703L, "The complexprecision.h code requires c++17 or higher.");
 
