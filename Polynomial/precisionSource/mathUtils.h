@@ -20,6 +20,89 @@
 #include "complexprecision.h"
 #include "fprecision.h"
 
+// -----------------------------------------------------------------------------
+// FIX: MSVC Ambiguity Resolution for comparison of float_precision and
+// arithmetic types
+// -----------------------------------------------------------------------------
+// Since fprecision.h (vendor) defines operator<(float_precision,
+// float_precision) and iprecision.h defines operator<(float_precision,
+// int_precision), comparisons like float_precision < int become ambiguous for
+// MSVC's std::complex. Explicit overloads for arithmetic types solve this.
+// -----------------------------------------------------------------------------
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator==(const float_precision &a, const T &b) {
+  return a == float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator==(const T &a, const float_precision &b) {
+  return float_precision(a) == b;
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator!=(const float_precision &a, const T &b) {
+  return a != float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator!=(const T &a, const float_precision &b) {
+  return float_precision(a) != b;
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator<(const float_precision &a, const T &b) {
+  return a < float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator<(const T &a, const float_precision &b) {
+  return float_precision(a) < b;
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator>(const float_precision &a, const T &b) {
+  return a > float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator>(const T &a, const float_precision &b) {
+  return float_precision(a) > b;
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator<=(const float_precision &a, const T &b) {
+  return a <= float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator<=(const T &a, const float_precision &b) {
+  return float_precision(a) <= b;
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator>=(const float_precision &a, const T &b) {
+  return a >= float_precision(b);
+}
+
+template <typename T>
+inline typename std::enable_if_t<std::is_arithmetic_v<T>, bool>
+operator>=(const T &a, const float_precision &b) {
+  return float_precision(a) >= b;
+}
+// -----------------------------------------------------------------------------
+
 // =============================================================================
 // ВСПОМОГАТЕЛЬНЫЕ МЕТАПРОГРАММИРУЮЩИЕ КОНСТРУКЦИИ
 // =============================================================================
